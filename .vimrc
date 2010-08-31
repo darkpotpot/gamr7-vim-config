@@ -1,7 +1,6 @@
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
-call pathogen#runtime_prepend_subdirectories('~/.vim/bundle/vim-pyflakes')
 filetype plugin indent on
 
 set whichwrap=b,s,<,>,[,]
