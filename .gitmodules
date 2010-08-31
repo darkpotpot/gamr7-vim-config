@@ -28,9 +28,6 @@
 [submodule ".vim/bundle/vim-bufexplorer"]
 	path = .vim/bundle/vim-bufexplorer
 	url = http://github.com/bronson/vim-bufexplorer.git
-[submodule ".vim/bundle/vim-pyflakes"]
-	path = .vim/bundle/vim-pyflakes
-	url = http://github.com/kevinw/pyflakes-vim.git
 [submodule ".vim/bundle/vim-fuzzyfinder"]
 	path = .vim/bundle/vim-fuzzyfinder
 	url = http://github.com/vim-bundles/fuzzyfinder.git
@@ -43,3 +40,6 @@
 [submodule ".vim/bundle/vim-sparkup"]
 	path = .vim/bundle/vim-sparkup
 	url = http://github.com/sophacles/vim-bundle-sparkup.git
+[submodule ".vim/ftplugin/python"]
+	path = .vim/ftplugin/python
+	url = http://github.com/kevinw/pyflakes-vim.git
