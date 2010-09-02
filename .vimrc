@@ -20,8 +20,11 @@ set list
 set cursorline
 set hidden
 set listchars=tab:>-,trail:.,nbsp:+
+set tags=tags;$HOME
 se et ts=8 sw=4 softtabstop=4 smarttab
 au BufEnter *.py set sw=4 sts=4 ts=4 et sta ai
+nnoremap <silent> <F2> :bn<CR>
+nnoremap <silent> <S-F2> :bp<CR>
 map <F3> :call Pyflakes()
 map <F4> :cd %:h
 map <F5> :!gnome-terminal -e "python2.6 -m pdb %"<CR><CR>

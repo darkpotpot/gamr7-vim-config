@@ -43,3 +43,6 @@
 [submodule ".vim/ftplugin/python"]
 	path = .vim/ftplugin/python
 	url = http://github.com/kevinw/pyflakes-vim.git
+[submodule ".vim/bundle/vim-taglist"]
+	path = .vim/bundle/vim-taglist
+	url = http://github.com/jc00ke/taglist.vim.git
