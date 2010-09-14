@@ -23,16 +23,15 @@ set listchars=tab:>-,trail:.,nbsp:+
 set tags=tags;$HOME
 se et ts=8 sw=4 softtabstop=4 smarttab
 au BufEnter *.py set sw=4 sts=4 ts=4 et sta ai
-nnoremap <silent> <F2> :bn<CR>
-nnoremap <silent> <S-F2> :bp<CR>
-map <F3> :call Pyflakes()
+nnoremap <silent> <C-N> :bn<CR>
+nnoremap <silent> <C-P> :bp<CR>
+map <F3> :py GenerateTags()
 map <F4> :cd %:h
 map <F5> :!gnome-terminal -e "python2.6 -m pdb %"<CR><CR>
 map <F6> :!xterm -hold -e "python2.6 -m pdb % -v"<CR><CR>
 map <F7> :%s/\(}\n\s\+<Vertex>\)/<RGBA> { 1.0 0.5 0.0 1.0}\1/g
 map <F11> :se path=.,~/gamr7/git-trunk/code/app/,~/gamr7/git-trunk/code/
 map <F12> :Align 
-vmap gl :<C-U>!svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 map œ $
 imap œ $
 vmap œ $
@@ -103,3 +102,15 @@ endfunction
 """"""""""""""""""""""""""""""
 
 command Rst :!pandoc -f rst -t html % > /tmp/rstprev.html && see /tmp/rstprev.html
+
+python << EOL
+import os
+import subprocess
+def GenerateTags():
+    old_cwd=os.getcwd()
+    os.chdir(os.path.expanduser('~/gamr7'))
+    cmd = "ctags -R --tag-relative=yes --languages=Python --python-kinds=-i -f ~/gamr7/tags ~/gamr7"
+    subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdin
+    os.chdir(old_cwd)
+EOL
+
