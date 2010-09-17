@@ -25,11 +25,11 @@ se et ts=8 sw=4 softtabstop=4 smarttab
 au BufEnter *.py set sw=4 sts=4 ts=4 et sta ai
 nnoremap <silent> <C-N> :bn<CR>
 nnoremap <silent> <C-P> :bp<CR>
+map <F2> :NERDTreeToggle
 map <F3> :py GenerateTags()
 map <F4> :cd %:h
 map <F5> :!gnome-terminal -e "python2.6 -m pdb %"<CR><CR>
 map <F6> :!xterm -hold -e "python2.6 -m pdb % -v"<CR><CR>
-map <F7> :%s/\(}\n\s\+<Vertex>\)/<RGBA> { 1.0 0.5 0.0 1.0}\1/g
 map <F11> :se path=.,~/gamr7/git-trunk/code/app/,~/gamr7/git-trunk/code/
 map <F12> :Align 
 map œ $
@@ -62,7 +62,7 @@ au FileType python inoremap <buffer> $p print
 au FileType python inoremap <buffer> $d """<cr>"""<esc>O
 au FileType python inoremap <buffer> $ss self.
 au FileType xml exe ":silent 1,$!tidy -xml -i -w 0 2>/dev/null"
-au FileType gcf exe ":silent 1,$!python ~/gamr7/trunk/code/gamr7_lib/security/gcf_converter.py -d 2>/dev/null"
+au FileType gcf exe ":silent 1,$!python ~/gamr7/code/gamr7_lib/security/gcf_converter.py -d 2>/dev/null"
 
 
 """"""""""""""""""""""""""""""
@@ -88,14 +88,6 @@ for p in sys.path:
     if os.path.isdir(p):
         vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
 EOF
-command Pyflakes :call Pyflakes()
-function! Pyflakes()
-    let tmpfile = tempname()
-    execute "w" tmpfile
-    execute "set makeprg=(pyflakes\\ " . tmpfile . "\\\\\\|sed\\ s@" . tmpfile ."@%@)"
-    make
-    cw
-endfunction
 
 """"""""""""""""""""""""""""""
 " Python section
