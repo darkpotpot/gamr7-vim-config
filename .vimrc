@@ -2,10 +2,47 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 filetype plugin indent on
+call pathogen#helptags()
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+"Set mapleader
+let mapleader = ","
+let g:mapleader = ","
+
+" This means that you can have unwritten changes to a file and open a new file using :e, 
+" without being forced to write or undo your changes first. 
+" Also, undo buffers and marks are preserved while the buffer is open. 
+" This is an absolute must-have
+set hidden
+
+" Also, I like Vim to have a large undo buffer, a large history of commands, 
+" ignore some file extensions when completing names by pressing Tab,
+" and be silent about invalid cursor moves and other errors.
+set history=1000         " remember more commands and search history
+set undolevels=1000      " use many muchos levels of undo
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set title                " change the terminal's title
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" It clears the search buffer when you press ,/
+" (Tired of clearing highlighted searches by searching for “ldsfhjkhgakjks")
+nmap <silent> ,/ :let @/=""<CR>
+
+" This lets you use w!! to do that after you opened the file that requires root privileges
+cmap w!! w !sudo tee % >/dev/null
+
 
 set whichwrap=b,s,<,>,[,]
-set wildignore=*.pyc
-nnoremap <silent> <F8> :Tlist<CR> 
 syntax enable
 colo desert
 set nu
@@ -43,9 +80,6 @@ let g:Tb_MoreThanOne = 1
 
 
 let g:delimitMate_apostrophes = ''
-"Set mapleader
-let mapleader = ","
-let g:mapleader = ","
 "map <leader>t :FuzzyFinderTextMate<CR>
 
 """"""""""""""""""""""""""""""
