@@ -25,7 +25,7 @@ set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
-set visualbell           " don't beep
+set visualbell           " don't bevv
 set noerrorbells         " don't beep
 
 " Easy window navigation
@@ -36,7 +36,7 @@ map <C-l> <C-w>l
 
 " It clears the search buffer when you press ,/
 " (Tired of clearing highlighted searches by searching for “ldsfhjkhgakjks")
-nmap <silent> ,/ :let @/=""<CR>
+nmap <silent> ,/ :nohlsearch<CR>
 
 " This lets you use w!! to do that after you opened the file that requires root privileges
 cmap w!! w !sudo tee % >/dev/null
@@ -78,6 +78,8 @@ let g:Tb_MaxSize = 40
 let g:Tb_VSplit = 40
 let g:Tb_MoreThanOne = 1
 
+" to avoid to have to do shift for save
+nnoremap ; :
 
 let g:delimitMate_apostrophes = ''
 "map <leader>t :FuzzyFinderTextMate<CR>
