@@ -4,13 +4,13 @@ call pathogen#helptags()
 filetype plugin indent on
 call pathogen#helptags()
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
 "Set mapleader
 let mapleader = ","
 let g:mapleader = ","
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " This means that you can have unwritten changes to a file and open a new file using :e, 
 " without being forced to write or undo your changes first. 
@@ -81,12 +81,19 @@ let g:Tb_MoreThanOne = 1
 " to avoid to have to do shift for save
 nnoremap ; :
 
+" to avoid doing ctrl+c or ESC to exit insert mode
+inoremap jj <ESC>
+
 let g:delimitMate_apostrophes = ''
 "map <leader>t :FuzzyFinderTextMate<CR>
 
 """"""""""""""""""""""""""""""
 " Python section
 """"""""""""""""""""""""""""""
+
+au BufRead,BufNewFile *.gcf		set filetype=gcf
+au FileType gcf exe ":silent 1,$!python ~/gamr7/code/gamr7_lib/security/gcf_converter.py -d %:p"
+au BufRead,BufNewFile *.gcf		set filetype=xml
 
 "Python iMaps
 " au FileType python set cindent
@@ -98,20 +105,12 @@ au FileType python inoremap <buffer> $p print
 au FileType python inoremap <buffer> $d """<cr>"""<esc>O
 au FileType python inoremap <buffer> $ss self.
 au FileType xml exe ":silent 1,$!tidy -xml -i -w 0 2>/dev/null"
-au FileType gcf exe ":silent 1,$!python ~/gamr7/code/gamr7_lib/security/gcf_converter.py -d 2>/dev/null"
 
 
 """"""""""""""""""""""""""""""
 "For syntax errors
 autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-
-python << EOL
-import vim
-def EvaluateCurrentRange():
-    eval(compile('\n'.join(vim.current.range),'','exec'),globals())
-EOL
-map <C-h> :py EvaluateCurrentRange()
 
 
 """"""""""""""""""""""""""""""
@@ -128,8 +127,6 @@ EOF
 """"""""""""""""""""""""""""""
 " Python section
 """"""""""""""""""""""""""""""
-
-command Rst :!pandoc -f rst -t html % > /tmp/rstprev.html && see /tmp/rstprev.html
 
 python << EOL
 import os
