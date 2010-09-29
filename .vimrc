@@ -85,14 +85,16 @@ nnoremap ; :
 inoremap jj <ESC>
 
 let g:delimitMate_apostrophes = ''
-"map <leader>t :FuzzyFinderTextMate<CR>
 
 """"""""""""""""""""""""""""""
 " Python section
 """"""""""""""""""""""""""""""
 
-au BufRead,BufNewFile *.gcf		set filetype=gcf
-au FileType gcf exe ":silent 1,$!python ~/gamr7/code/gamr7_lib/security/gcf_converter.py -d %:p"
+" encrypt/decrypt gcf on the fly
+autocmd BufReadPre,FileReadPre      *.gcf set bin modifiable
+autocmd BufReadPost,FileReadPost    *.gcf '[,']!python ~/gamr7/code/gamr7_lib/security/gcf_converter.py --decrypt <afile>
+autocmd BufReadPost,FileReadPost    *.gcf set nobin
+autocmd BufWritePost,FileWritePost  *.gcf !python ~/gamr7/code/gamr7_lib/security/gcf_converter.py --encrypt <afile>
 au BufRead,BufNewFile *.gcf		set filetype=xml
 
 "Python iMaps
