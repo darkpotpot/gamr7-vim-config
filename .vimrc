@@ -1,6 +1,5 @@
 filetype off
 call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
 filetype plugin indent on
 call pathogen#helptags()
 
@@ -25,7 +24,7 @@ set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
-set visualbell           " don't bevv
+set visualbell           " don't beep
 set noerrorbells         " don't beep
 
 " Easy window navigation
@@ -57,7 +56,6 @@ set list
 set cursorline
 set hidden
 set listchars=tab:>-,trail:.,nbsp:+
-set tags=tags;$HOME
 se et ts=8 sw=4 softtabstop=4 smarttab
 au BufEnter *.py set sw=4 sts=4 ts=4 et sta ai
 nnoremap <silent> <C-N> :bn<CR>
@@ -69,6 +67,7 @@ map <F5> :!gnome-terminal -e "python2.6 -m pdb %"<CR><CR>
 map <F6> :!xterm -hold -e "python2.6 -m pdb % -v"<CR><CR>
 map <F11> :se path=.,~/gamr7/git-trunk/code/app/,~/gamr7/git-trunk/code/
 map <F12> :Align 
+
 map œ $
 imap œ $
 vmap œ $
@@ -141,3 +140,6 @@ def GenerateTags():
     os.chdir(old_cwd)
 EOL
 
+command Rst :!pandoc -f rst -t html % > /tmp/rstprev.html && see /tmp/rstprev.html
+
+set tags=tags;$HOME
