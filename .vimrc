@@ -140,6 +140,4 @@ def GenerateTags():
     os.chdir(old_cwd)
 EOL
 
-command Rst :!pandoc -f rst -t html % > /tmp/rstprev.html && see /tmp/rstprev.html
-
 set tags=tags;$HOME
