@@ -212,4 +212,4 @@ EOL
 
 set tags=tags;$HOME
 cs add $GAMR7_DEVCODE_PATH/cscope.out
-
+cd $GAMR7_DEVCODE_PATH
