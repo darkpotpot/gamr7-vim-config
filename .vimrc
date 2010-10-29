@@ -202,14 +202,13 @@ import subprocess
 def GenerateTags():
     old_cwd=os.getcwd()
     os.chdir(os.path.expanduser(os.environ['GAMR7_DEVCODE_PATH']))
-    cmd = "ctags -R --tag-relative=yes --languages=Python --python-kinds=-i -f $GAMR7_DEVCODE_PATH"
+    cmd = "ctags -R --tag-relative=yes --languages=Python --python-kinds=-i -f $GAMR7_DEVCODE_PATH/tags $GAMR7_DEVCODE_PATH"
     subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdin
     cmd = "pycscope.py -R $GAMR7_DEVCODE_PATH"
-    subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True).stdin
+    os.system(cmd)
     os.chdir(old_cwd)
-    vim.command("cs add %s" % (os.environ['GAMR7_DEVCODE_PATH'] + '/cscope.out'))
+    vim.command("cs reset")
 EOL
 
 set tags=tags;$HOME
 cs add $GAMR7_DEVCODE_PATH/cscope.out
-cd $GAMR7_DEVCODE_PATH
