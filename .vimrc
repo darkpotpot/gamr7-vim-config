@@ -35,7 +35,7 @@ map <C-l> <C-w>l
 
 " It clears the search buffer when you press ,/
 " (Tired of clearing highlighted searches by searching for “ldsfhjkhgakjks")
-nmap <silent> ,/ :nohlsearch<CR>
+nmap <silent> ,/ :nohlsearch<CR> 
 
 " This lets you use w!! to do that after you opened the file that requires root privileges
 cmap w!! w !sudo tee % >/dev/null
@@ -67,6 +67,9 @@ map <F5> :!gnome-terminal -e "python2.6 -m pdb %"<CR><CR>
 map <F6> :!xterm -hold -e "python2.6 -m pdb % -v"<CR><CR>
 map <F12> :Align 
 
+" to avoid doing ctrl+c or ESC to exit insert mode
+inoremap jj <ESC> 
+
 map œ $
 imap œ $
 vmap œ $
@@ -83,7 +86,7 @@ nnoremap ; :
 inoremap jj <ESC>
 
 let g:delimitMate_apostrophes = ''
-
+"map <leader>t :FuzzyFinderTextMate<CR>
 
 """"""""""""" My cscope/vim key mappings
 "
@@ -191,11 +194,89 @@ au FileType python inoremap <buffer> $ss self.
 au FileType xml exe ":silent 1,$!tidy -xml -i -w 0 2>/dev/null"
 
 
+""""""""""""" My cscope/vim key mappings
+"
+" The following maps all invoke one of the following cscope search types:
+"
+"   's'   symbol: find all references to the token under cursor
+"   'g'   global: find global definition(s) of the token under cursor
+"   'c'   calls:  find all calls to the function name under cursor
+"   't'   text:   find all instances of the text under cursor
+"   'e'   egrep:  egrep search for the word under cursor
+"   'f'   file:   open the filename under cursor
+"   'i'   includes: find files that include the filename under cursor
+"   'd'   called: find functions that function under cursor calls
+"
+" Below are three sets of the maps: one set that just jumps to your
+" search result, one that splits the existing vim window horizontally and
+" diplays your search result in the new window, and one that does the same
+" thing, but does a vertical split instead (vim 6 only).
+"
+" I've used CTRL-\ and CTRL-@ as the starting keys for these maps, as it's
+" unlikely that you need their default mappings (CTRL-\'s default use is
+" as part of CTRL-\ CTRL-N typemap, which basically just does the same
+" thing as hitting 'escape': CTRL-@ doesn't seem to have any default use).
+" If you don't like using 'CTRL-@' or CTRL-\, , you can change some or all
+" of these maps to use other keys.  One likely candidate is 'CTRL-_'
+" (which also maps to CTRL-/, which is easier to type).  By default it is
+" used to switch between Hebrew and English keyboard mode.
+"
+" All of the maps involving the <cfile> macro use '^<cfile>$': this is so
+" that searches over '#include <time.h>" return only references to
+" 'time.h', and not 'sys/time.h', etc. (by default cscope will return all
+" files that contain 'time.h' as part of their name).
 
-""""""""""""""""""""""""""""""
-" Python section
-""""""""""""""""""""""""""""""
 
+" To do the first type of search, hit 'CTRL-\', followed by one of the
+" cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
+" search will be displayed in the current window.  You can use CTRL-T to
+" go back to where you were before the search.
+"
+
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+
+" Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
+" makes the vim window split horizontally, with search result displayed in
+" the new window.
+"
+" (Note: earlier versions of vim may not have the :scs command, but it
+" can be simulated roughly via:
+"    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>
+
+nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+
+
+" Hitting CTRL-space *twice* before the search type does a vertical
+" split instead of a horizontal one (vim 6 and up only)
+"
+" (Note: you may wish to put a 'set splitright' in your .vimrc
+" if you prefer the new window on the right instead of the left
+
+nmap <C-Space><C-Space>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space><C-Space>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space><C-Space>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space><C-Space>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space><C-Space>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space><C-Space>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-Space><C-Space>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-Space><C-Space>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+map <F3> :py GenerateTags() 
 python << EOL
 import os
 import subprocess
