@@ -27,7 +27,7 @@
 	url = http://github.com/msanders/snipmate.vim.git
 [submodule ".vim/bundle/vim-bufexplorer"]
 	path = .vim/bundle/vim-bufexplorer
-	url = https://github.com/slack/vim-bufexplorer.git
+	url = https://github.com/vim-scripts/bufexplorer.zip
 [submodule ".vim/bundle/vim-fuzzyfinder"]
 	path = .vim/bundle/vim-fuzzyfinder
 	url = http://github.com/vim-scripts/FuzzyFinder.git
