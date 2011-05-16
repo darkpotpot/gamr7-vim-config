@@ -11,13 +11,13 @@ let g:mapleader = ","
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" This means that you can have unwritten changes to a file and open a new file using :e, 
-" without being forced to write or undo your changes first. 
-" Also, undo buffers and marks are preserved while the buffer is open. 
+" This means that you can have unwritten changes to a file and open a new file using :e,
+" without being forced to write or undo your changes first.
+" Also, undo buffers and marks are preserved while the buffer is open.
 " This is an absolute must-have
 set hidden
 
-" Also, I like Vim to have a large undo buffer, a large history of commands, 
+" Also, I like Vim to have a large undo buffer, a large history of commands,
 " ignore some file extensions when completing names by pressing Tab,
 " and be silent about invalid cursor moves and other errors.
 set history=1000         " remember more commands and search history
@@ -35,7 +35,8 @@ map <C-l> <C-w>l
 
 " It clears the search buffer when you press ,/
 " (Tired of clearing highlighted searches by searching for “ldsfhjkhgakjks")
-nmap <silent> ,/ :nohlsearch<CR> 
+nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <silent> <leader>> :%s#\s*\r\?$##<CR>:nohlsearch<CR>
 
 " This lets you use w!! to do that after you opened the file that requires root privileges
 cmap w!! w !sudo tee % >/dev/null
@@ -60,15 +61,17 @@ se et ts=8 sw=4 softtabstop=4 smarttab
 au BufEnter *.py set sw=4 sts=4 ts=4 et sta ai
 nnoremap <silent> <C-N> :bn<CR>
 nnoremap <silent> <C-P> :bp<CR>
-map <F2> :NERDTreeToggle
-map <F3> :py GenerateTags()
-map <F4> :cd %:h
+map <F2> :NERDTreeToggle<CR>
+map <F3> :py GenerateTags()<CR>
+map <F4> :cd %:h<CR>
 map <F5> :!gnome-terminal -e "python2.6 -m pdb %"<CR><CR>
 map <F6> :!xterm -hold -e "python2.6 -m pdb % -v"<CR><CR>
-map <F12> :Align 
+nnoremap <F7> :GundoToggle<CR>
+map <F12> :Align
 
+let NERDTreeIgnore=['\.pyo$', '\~$']
 " to avoid doing ctrl+c or ESC to exit insert mode
-inoremap jj <ESC> 
+inoremap jj <ESC>
 
 map œ $
 imap œ $
@@ -124,17 +127,17 @@ let g:delimitMate_apostrophes = ''
 " To do the first type of search, hit 'CTRL-\', followed by one of the
 " cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
 " search will be displayed in the current window.  You can use CTRL-T to
-" go back to where you were before the search.  
+" go back to where you were before the search.
 "
 
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>	
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 
 " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
@@ -143,19 +146,19 @@ nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 "
 " (Note: earlier versions of vim may not have the :scs command, but it
 " can be simulated roughly via:
-"    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>	
+"    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>
 
-nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>	
-nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
-nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
 
 
-" Hitting CTRL-space *twice* before the search type does a vertical 
+" Hitting CTRL-space *twice* before the search type does a vertical
 " split instead of a horizontal one (vim 6 and up only)
 "
 " (Note: you may wish to put a 'set splitright' in your .vimrc
@@ -166,8 +169,8 @@ nmap <C-Space><C-Space>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
 nmap <C-Space><C-Space>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <C-Space><C-Space>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
 nmap <C-Space><C-Space>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>	
-nmap <C-Space><C-Space>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
+nmap <C-Space><C-Space>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-Space><C-Space>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-Space><C-Space>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
 
@@ -276,7 +279,7 @@ nmap <C-Space><C-Space>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-Space><C-Space>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-Space><C-Space>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
-map <F3> :py GenerateTags() 
+map <F3> :py GenerateTags()
 python << EOL
 import os
 import subprocess
