@@ -21,11 +21,15 @@ set hidden
 " ignore some file extensions when completing names by pressing Tab,
 " and be silent about invalid cursor moves and other errors.
 set history=1000         " remember more commands and search history
-set undolevels=1000      " use many muchos levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
+
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 " Easy window navigation
 map <C-h> <C-w>h
